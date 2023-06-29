@@ -1,4 +1,4 @@
-<? 
+<?php 
 $title = "";
 $sub_title = "";
 if(isset($_GET['c']) && isset($_GET['s'])){
@@ -36,37 +36,37 @@ elseif(isset($_GET['s'])){
 <header class="bg-dark py-5" id="main-header">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h2 class="display-4 fw-bolder"><? echo $title ?></h2>
-            <p class="lead fw-normal text-white-50 mb-0"><? echo $sub_title ?></p>
+            <h1 class="display-4 fw-bolder"><?php echo $title ?></h1>
+            <p class="lead fw-normal text-white-50 mb-0"><?php echo $sub_title ?></p>
         </div>
     </div>
 </header>
 <!-- Section-->
 <section class="py-5">
     <div class="container-fluid row">
-        <? if(isset($_GET['c'])): ?>
+        <?php if(isset($_GET['c'])): ?>
         <div class="col-md-3 border-right mb-2 pb-3">
             <h3><b>Sub Categories</b></h3>
             <div class="list-group">
-                <a href="./?p=products&c=<? echo $_GET['c'] ?>" class="list-group-item <? echo !isset($_GET['s']) ? "active" : "" ?>">All</a>
-                <? 
+                <a href="./?p=products&c=<?php echo $_GET['c'] ?>" class="list-group-item <?php echo !isset($_GET['s']) ? "active" : "" ?>">All</a>
+                <?php 
                 $sub_cat = $conn->query("SELECT * FROM `sub_categories` where md5(parent_id) =  '{$_GET['c']}' ");
                 while($row = $sub_cat->fetch_assoc()):
                 ?>
-                    <a href="./?p=products&c=<? echo $_GET['c'] ?>&s=<? echo md5($row['id']) ?>" class="list-group-item  <? echo isset($_GET['s']) && $_GET['s'] == md5($row['id']) ? "active" : "" ?>"><? echo $row['sub_category'] ?></a>
-                <? endwhile; ?>
+                    <a href="./?p=products&c=<?php echo $_GET['c'] ?>&s=<?php echo md5($row['id']) ?>" class="list-group-item  <?php echo isset($_GET['s']) && $_GET['s'] == md5($row['id']) ? "active" : "" ?>"><?php echo $row['sub_category'] ?></a>
+                <?php endwhile; ?>
             </div>
             <hr>
         </div>
-        <? endif; ?>
-        <div class="<? echo isset($_GET['c'])? 'col-md-9': 'col-lg-10 offset-md-1' ?>">
+        <?php endif; ?>
+        <div class="<?php echo isset($_GET['c'])? 'col-md-9': 'col-lg-10 offset-md-1' ?>">
             <div class="container-fluid p-0">
-                <? if(isset($_GET['search'])): ?>
-                    <h4 class="text-center py-5"><b>Search Results for '<? echo $_GET['search'] ?>'</b></h4>
-                <? endif; ?>
+                <?php if(isset($_GET['search'])): ?>
+                    <h4 class="text-center py-5"><b>Search Results for '<?php echo $_GET['search'] ?>'</b></h4>
+                <?php endif; ?>
             <div class="row gx-2 gx-lg-2 row-cols-1 row-cols-md-3 row-cols-xl-4">
                     
-                    <? 
+                    <?php 
                         $whereData = "";
                         if(isset($_GET['search']))
                             $whereData = " and (p.name LIKE '%{$_GET['search']}%' or b.name LIKE '%{$_GET['search']}%')";
@@ -91,23 +91,23 @@ elseif(isset($_GET['s'])){
                             }
                     ?>
                     <div class="col-md-12 mb-5">
-                        <a class="card product-item text-dark" href=".?p=view_product&id=<? echo md5($row['id']) ?>">
+                        <a class="card product-item text-dark" href=".?p=view_product&id=<?php echo md5($row['id']) ?>">
                             <!-- Product image-->
-                            <img class="card-img-top w-100" src="<? echo validate_image($img) ?>" loading="lazy" alt="..." />
+                            <img class="card-img-top w-100" src="<?php echo validate_image($img) ?>" loading="lazy" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder"><? echo $row['name'] ?></h5>
+                                    <h2 class="fw-bolder"><?php echo $row['name'] ?></h2>
                                     <!-- Product price-->
-                                        <span><b>Price: </b><? echo number_format($row['price'], 2) ?></span>
+                                        <span><b>Price: </b><?php echo number_format($row['price'], 2) ?></span>
                                 </div>
-                                <p class="m-0"><small><b>Brand:</b> <? echo $row['bname'] ?></small></p>
+                                <p class="m-0"><small><b>Brand:</b> <?php echo $row['bname'] ?></small></p>
                             </div>
                         </a>
                     </div>
-                    <? endwhile; ?>
-                    <? 
+                    <?php endwhile; ?>
+                    <?php 
                         if($products->num_rows <= 0){
                             echo "<h4 class='text-center'><b>No Product Listed.</b></h4>";
                         }

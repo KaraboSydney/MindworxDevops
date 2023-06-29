@@ -57,7 +57,7 @@
             </div>
             <div class="col-md-6">
                 <!-- <div class="small mb-1">SKU: BST-498</div> -->
-                <h1 class="display-5 fw-bolder border-bottom border-primary pb-1"><?php echo $name ?></h1>
+                <h2 class="display-5 fw-bolder border-bottom border-primary pb-1"><center><?php echo $name ?></center></h2>
                 <p class="m-0"><small><b>Brand:</b> <?php echo $bname ?></small></p>
                 <div class="fs-5 mb-5">
                 &#8369; <span id="price"><?php echo number_format($price) ?></span>
